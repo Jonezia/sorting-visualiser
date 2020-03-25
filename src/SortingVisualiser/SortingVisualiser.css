@@ -1,12 +1,19 @@
 .array-container {
-    height: 90%;
+    height: 80%;
     width: 95%;
-    position:absolute;
+    position: absolute;
     left:2.5%;
-    bottom:0;
+    bottom: 80px;
+    background-color: green;
+}
+
+.array-bar-container {
+    height: 100%;
+    background-color: blue;
+    display: inline-block;
 }
 
 .array-bar {
-    background-color: mediumvioletred;
-    display: inline-block;
+    background-color:white;;
+    width: 100%;
 }

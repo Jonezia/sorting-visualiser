@@ -7,12 +7,13 @@ export default class SortingVisualiser extends React.Component{
         this.state = {
             array: [],
             maxHeight: 0,
+            maxValue:0,
             count: 0,
         }
     };
 
     componentWillMount() {
-        this.newArray(5,500,2000)
+        this.newArray(5,500,20)
     }
 
     newArray(min,max,count) {
@@ -20,16 +21,21 @@ export default class SortingVisualiser extends React.Component{
         for (let i = 0; i < count; i++) {
             array.push(RandIntFromInterval(min,max))
         };
-        this.setState({array:array, maxHeight:max, count:count})
+        let maxValue = Math.max.apply(Math, array);
+        this.setState({array:array, maxHeight:max,
+            count:count, maxValue: maxValue});
     }
 
     render() {
         return (<div className="array-container">
             {this.state.array.map((value,idx) =>
-                <div className="array-bar"
-                key={idx}
-                style={{height:`${value/this.state.maxHeight*100}%`,
-                width:`${100/this.state.count}%`}}></div>
+                <div className="array-bar-container"
+                    key={idx} style={{width:`${100/this.state.count}%`}}>
+                    <div className="array-bar"
+                    key={idx}
+                    style={{height:`${value/this.state.maxHeight*100}%`}}>
+                    </div>
+                </div>
             )}
         </div>)
     };
