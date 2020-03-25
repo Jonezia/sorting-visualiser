@@ -1,0 +1,13 @@
+.input-box {
+    height: 50px;
+    width: 200px;
+}
+
+.input-name {
+    display: inline-block;
+    padding-right: 10px;
+}
+
+input {
+    width: 100px;
+}

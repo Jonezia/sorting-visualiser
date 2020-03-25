@@ -3,14 +3,18 @@
     width: 95%;
     position: absolute;
     left:2.5%;
-    bottom: 80px;
-    background-color: green;
+    bottom: 100px;
 }
 
 .array-bar-container {
     height: 100%;
-    background-color: blue;
     display: inline-block;
+}
+
+.array-bar-container-2 {
+    height: 100%;
+    width: 80%;
+    background-color: blue;
 }
 
 .array-bar {
@@ -18,4 +22,33 @@
     width: 100%;
     margin: auto;
     bottom: 0;
+}
+
+.bar {
+    background-color: green;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: 100px;
+}
+
+button {
+    position: absolute;
+    height: 30px;
+    bottom: 35px;
+    left: 500px;
+}
+
+.input-column1 {
+    width: 200px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    margin-left: 50px;
+}
+
+.input-column2 {
+    position: absolute;
+    bottom: 0;
+    margin-left: 250px;
 }
