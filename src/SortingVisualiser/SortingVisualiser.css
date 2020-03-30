@@ -18,7 +18,7 @@
 }
 
 .array-bar {
-    background-color:white;;
+    background-color:white;
     width: 100%;
     margin: auto;
     bottom: 0;
@@ -32,11 +32,18 @@
     height: 100px;
 }
 
-button {
+#new {
     position: absolute;
-    height: 30px;
     bottom: 35px;
     left: 500px;
+    margin: 0;
+}
+
+button {
+    height: 30px;
+    width: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .input-column1 {
@@ -51,4 +58,28 @@ button {
     position: absolute;
     bottom: 0;
     margin-left: 250px;
+}
+
+.button-column1 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    right: 350px;
+}
+
+.button-column2 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    right: 200px;
+}
+
+.button-column3 {
+    width: 150px;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    right: 50px;
 }
