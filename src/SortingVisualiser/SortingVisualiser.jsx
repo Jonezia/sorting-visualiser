@@ -1,17 +1,21 @@
 import React from 'react';
 import './SortingVisualiser.css';
 import Input from './input/input'
+import {bubbleSortAnims} from './SortingAlgorithms.js';
 
 let min = 0
 let max = 0
 let count = 0
-let speed = 0
+let delay = 0
+
+let color1 = 'orange'
 
 export default class SortingVisualiser extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
             array: [],
+            color1: []
         }
     };
 
@@ -20,13 +24,19 @@ export default class SortingVisualiser extends React.Component{
         for (let i = 0; i < count; i++) {
             array.push(RandIntFromInterval(min,max))
         };
-        console.log(min)
-        console.log(max)
-        for (let i=0; i<5; i++) {
-        console.log(RandIntFromInterval(min,max))}
-        console.log(array)
         this.setState({array:array});
     }
+
+    bubbleSort() {
+        let frames = bubbleSortAnims(this.state.array)
+        for (let i = 0; i < frames[0].length; i++) {
+              setTimeout(() => {
+                this.setState({array:frames[0][i],
+                color1: frames[1][i]});
+              }, i * delay);
+        };
+        this.setState({color1: []})
+    };
 
     render() {
         return (<div>
@@ -34,7 +44,9 @@ export default class SortingVisualiser extends React.Component{
             {this.state.array.map((value,idx) =>
                 <div className="array-bar-container"
                     key={idx} style={{width:`${100/count}%`}}>
-                    <div className = "array-bar-container-2">
+                    <div className = "array-bar-container-2"
+                    style={{backgroundColor: (this.state.color1.includes(idx)) ?
+                    color1 : 'blue'}}>
                         <div className="array-bar"
                         key={idx}
                         style={{height:`${(1-value/max)*100}%`}}>
@@ -51,8 +63,7 @@ export default class SortingVisualiser extends React.Component{
                 <div className="input-column2">
                     <Input name="count" maxlength="3" placeholder="1-300"
                     onChange={(newCount)=>count=Number(newCount)}/>
-                    <Input name="speed" maxlength="1" placeholder="1-9"
-                    onChange={(newSpeed)=>speed=Number(newSpeed)}/>
+                    <Input name="delay" onChange={(newDelay)=>delay=Number(newDelay)}/>
                 </div>
                 <button id="new" onClick={()=>this.newArray()}>New!</button>
                 <div className="button-column1">
