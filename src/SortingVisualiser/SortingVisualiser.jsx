@@ -8,6 +8,9 @@ let max = 0
 let count = 0
 let delay = 0
 
+let tid
+let running = false
+
 let color1 = 'orange'
 
 export default class SortingVisualiser extends React.Component{
@@ -20,22 +23,33 @@ export default class SortingVisualiser extends React.Component{
     };
 
     newArray() {
+        running = false
+        clearTimeout(tid)
         const array = [];
         for (let i = 0; i < count; i++) {
             array.push(RandIntFromInterval(min,max))
         };
-        this.setState({array:array});
+        this.setState({array:array, color1: []});
     }
 
     bubbleSort() {
         let frames = bubbleSortAnims(this.state.array)
-        for (let i = 0; i < frames[0].length; i++) {
-              setTimeout(() => {
+        let bubbleSortRun = () => {
+            if (running) {
+            if (i == frames[0].length) {
+                running = false
+                clearTimeout(tid);
+                this.setState({color1: []})
+            } else {
                 this.setState({array:frames[0][i],
-                color1: frames[1][i]});
-              }, i * delay);
-        };
-        this.setState({color1: []})
+                    color1: frames[1][i]});
+                i += 1
+                tid = setTimeout(bubbleSortRun, delay)
+            }
+        }}
+        running = true
+        let tid = setTimeout(bubbleSortRun, delay)
+        let i = 0
     };
 
     render() {
