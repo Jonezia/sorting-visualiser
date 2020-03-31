@@ -46,3 +46,29 @@ export function selectionSortAnims(arr) {
     }
     return [animations, color1, color2];
 }
+
+export function insertionSortAnims(arr) {
+    let len = arr.length;
+    let animations = [];
+    let color1 = [];
+    let color2 = [];
+    for (let i = 1; i < len; i++) {
+        let key = arr[i];
+        let j = i - 1;
+        animations.push(arr.slice())
+        color1.push([i])
+        color2.push([])
+        while (j >= 0 && arr[j] > key) {
+            animations.push(arr.slice())
+            color1.push([])
+            color2.push([j,j+1])
+            arr[j + 1] = arr[j];
+            j = j - 1;
+        }
+        arr[j + 1] = key;
+        animations.push(arr.slice())
+        color1.push([j+1])
+        color2.push([])
+    }
+    return [animations, color1, color2];
+};
