@@ -1,8 +1,8 @@
 import React from 'react';
 import './SortingVisualiser.css';
 import Input from './input/input'
-import {bubbleSortAnims, selectionSortAnims, insertionSortAnims
-        } from './SortingAlgorithms.js';
+import {bubbleSortAnims, selectionSortAnims, insertionSortAnims,
+        quickSortAnims} from './SortingAlgorithms.js';
 
 let min = 0
 let max = 0
@@ -39,7 +39,7 @@ export default class SortingVisualiser extends React.Component{
         let frames = bubbleSortAnims(this.state.array)
         let bubbleSortRun = () => {
             if (running) {
-            if (i == frames[0].length) {
+            if (i === frames[0].length) {
                 running = false
                 clearTimeout(tid);
                 this.setState({color1: [], color2: []})
@@ -60,7 +60,7 @@ export default class SortingVisualiser extends React.Component{
         let frames = selectionSortAnims(this.state.array)
         let selectionSortRun = () => {
             if (running) {
-            if (i == frames[0].length) {
+            if (i === frames[0].length) {
                 running = false
                 clearTimeout(tid);
                 this.setState({color1: [], color2: []})
@@ -81,7 +81,7 @@ export default class SortingVisualiser extends React.Component{
         let frames = insertionSortAnims(this.state.array)
         let insertionSortRun = () => {
             if (running) {
-            if (i == frames[0].length) {
+            if (i === frames[0].length) {
                 running = false
                 clearTimeout(tid);
                 this.setState({color1: [], color2: []})
@@ -95,6 +95,27 @@ export default class SortingVisualiser extends React.Component{
         }}
         running = true
         let tid = setTimeout(insertionSortRun, delay)
+        let i = 0
+    };
+
+    quickSort() {
+        let frames = quickSortAnims(this.state.array)
+        let quickSortRun = () => {
+            if (running) {
+            if (i === frames[0].length) {
+                running = false
+                clearTimeout(tid);
+                this.setState({color1: [], color2: []})
+            } else {
+                this.setState({array:frames[0][i],
+                    color1: frames[1][i],
+                    color2: frames[2][i]});
+                i += 1
+                tid = setTimeout(quickSortRun, delay)
+            }
+        }}
+        running = true
+        let tid = setTimeout(quickSortRun, delay)
         let i = 0
     };
 
