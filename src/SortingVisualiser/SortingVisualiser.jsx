@@ -2,7 +2,7 @@ import React from 'react';
 import './SortingVisualiser.css';
 import Input from './input/input'
 import {bubbleSortAnims, selectionSortAnims, insertionSortAnims,
-        quickSortAnims, heapSortAnims} from './SortingAlgorithms.js';
+        quickSortAnims, heapSortAnims, mergeSortAnims} from './SortingAlgorithms.js';
 
 let min = 0
 let max = 0
@@ -137,6 +137,27 @@ export default class SortingVisualiser extends React.Component{
         }}
         running = true
         let tid = setTimeout(heapSortRun, delay)
+        let i = 0
+    };
+
+    mergeSort() {
+        let frames = mergeSortAnims(this.state.array)
+        let mergeSortRun = () => {
+            if (running) {
+            if (i === frames[0].length) {
+                running = false
+                clearTimeout(tid);
+                this.setState({color1: [], color2: []})
+            } else {
+                this.setState({array:frames[0][i],
+                    color1: frames[1][i],
+                    color2: frames[2][i]});
+                i += 1
+                tid = setTimeout(mergeSortRun, delay)
+            }
+        }}
+        running = true
+        let tid = setTimeout(mergeSortRun, delay)
         let i = 0
     };
 

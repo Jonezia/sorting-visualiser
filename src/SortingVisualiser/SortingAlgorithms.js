@@ -167,7 +167,7 @@ function heap_root(input, i) {
         heapSortColor1.push([left,right,i])
         heapSortColor2.push([max])
     }
-    if (max != i) {
+    if (max !== i) {
         [input[i],input[max]] = [input[max],input[i]]
         heapSortAnimations.push(input.slice())
         heapSortColor1.push([])
@@ -193,3 +193,56 @@ function heapSort(input) {
         heap_root(input, 0);
     }
 }
+
+let mergeSortAnimations = []
+let mergeSortColor1 = []
+let mergeSortColor2 = []
+
+export function mergeSortAnims(arr) {
+    mergeSortAnimations = []
+    mergeSortColor1 = []
+    mergeSortColor2 = []
+    mergeSort(arr, 0, arr.length - 1)
+    return([mergeSortAnimations, mergeSortColor1, mergeSortColor2])
+}
+
+function mergeSort(arr, l, r) {
+    if (l < r) {
+        let m = Math.floor((l + r)/ 2); 
+        mergeSort(arr, l, m); 
+        mergeSort(arr, m + 1, r); 
+        merge(arr, l, m, r); 
+    }
+}
+
+function merge(arr,start,mid,end) {
+    let start2 = mid + 1
+    if (arr[mid] <= arr[start2]) {return}
+    while (start <= mid && start2 <= end) {
+        if (arr[start] <= arr[start2]){
+            mergeSortAnimations.push(arr.slice())
+            mergeSortColor1.push([start,start2])
+            mergeSortColor2.push([])
+            start ++;
+            mergeSortAnimations.push(arr.slice())
+            mergeSortColor1.push([start,start2])
+            mergeSortColor2.push([])
+        } else {
+            let value = arr[start2]; 
+            let index = start2;  
+            while (index !== start) {
+                arr[index] = arr[index - 1];
+                mergeSortAnimations.push(arr.slice())
+                mergeSortColor1.push([])
+                mergeSortColor2.push([index,index-1]) 
+                index --; 
+            }
+            arr[start] = value;
+            mergeSortAnimations.push(arr.slice())
+            mergeSortColor1.push([])
+            mergeSortColor2.push([start]) 
+            start ++; 
+            mid ++; 
+            start2 ++; 
+    }
+}}
