@@ -116,7 +116,6 @@ function partition(items, left, right) {
             quickSortAnimations.push(items.slice())
             quickSortColor1.push([i,j])
             quickSortColor2.push([mid])
-
         }
     }
     return i;
@@ -134,4 +133,63 @@ function quickSort(items, left, right) {
         }
     }
     return items;
+}
+
+let array_length
+let heapSortAnimations = []
+let heapSortColor1 = []
+let heapSortColor2 = []
+
+export function heapSortAnims(arr) {
+    heapSortAnimations = []
+    heapSortColor1 = []
+    heapSortColor2 = []
+    heapSort(arr)
+    return([heapSortAnimations, heapSortColor1, heapSortColor2])
+}
+
+function heap_root(input, i) {
+    var left = 2 * i + 1;
+    var right = 2 * i + 2;
+    var max = i;
+    heapSortAnimations.push(input.slice())
+    heapSortColor1.push([left,right,i])
+    heapSortColor2.push([max])
+    if (left < array_length && input[left] > input[max]) {
+        max = left;
+        heapSortAnimations.push(input.slice())
+        heapSortColor1.push([left,right,i])
+        heapSortColor2.push([max])
+    }
+    if (right < array_length && input[right] > input[max])     {
+        max = right;
+        heapSortAnimations.push(input.slice())
+        heapSortColor1.push([left,right,i])
+        heapSortColor2.push([max])
+    }
+    if (max != i) {
+        [input[i],input[max]] = [input[max],input[i]]
+        heapSortAnimations.push(input.slice())
+        heapSortColor1.push([])
+        heapSortColor2.push([max,i])
+        heap_root(input, max);
+    }
+}
+
+function heapSort(input) {
+    array_length = input.length;
+    for (var i = Math.floor(array_length / 2); i >= 0; i--) {
+        heap_root(input, i);
+      }
+    for (i = input.length - 1; i > 0; i--) {
+        heapSortAnimations.push(input.slice());
+        heapSortColor1.push([i,0]);
+        heapSortColor2.push([]);
+        [input[0],input[i]] = [input[i],input[0]]
+        heapSortAnimations.push(input.slice())
+        heapSortColor1.push([])
+        heapSortColor2.push([i,0])
+        array_length--;
+        heap_root(input, 0);
+    }
 }

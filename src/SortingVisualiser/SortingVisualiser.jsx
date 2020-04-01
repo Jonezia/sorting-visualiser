@@ -2,7 +2,7 @@ import React from 'react';
 import './SortingVisualiser.css';
 import Input from './input/input'
 import {bubbleSortAnims, selectionSortAnims, insertionSortAnims,
-        quickSortAnims} from './SortingAlgorithms.js';
+        quickSortAnims, heapSortAnims} from './SortingAlgorithms.js';
 
 let min = 0
 let max = 0
@@ -119,6 +119,27 @@ export default class SortingVisualiser extends React.Component{
         let i = 0
     };
 
+    heapSort() {
+        let frames = heapSortAnims(this.state.array)
+        let heapSortRun = () => {
+            if (running) {
+            if (i === frames[0].length) {
+                running = false
+                clearTimeout(tid);
+                this.setState({color1: [], color2: []})
+            } else {
+                this.setState({array:frames[0][i],
+                    color1: frames[1][i],
+                    color2: frames[2][i]});
+                i += 1
+                tid = setTimeout(heapSortRun, delay)
+            }
+        }}
+        running = true
+        let tid = setTimeout(heapSortRun, delay)
+        let i = 0
+    };
+
     render() {
         return (<div>
             <div className="array-container">
@@ -126,8 +147,8 @@ export default class SortingVisualiser extends React.Component{
                 <div className="array-bar-container"
                     key={idx} style={{width:`${100/count}%`}}>
                     <div className = "array-bar-container-2"
-                    style={{backgroundColor: (this.state.color1.includes(idx)) ?
-                    color1 : (this.state.color2.includes(idx)) ? color2 : 'blue'}}>
+                    style={{backgroundColor: (this.state.color2.includes(idx)) ?
+                    color2 : (this.state.color1.includes(idx)) ? color1 : 'blue'}}>
                         <div className="array-bar"
                         key={idx}
                         style={{height:`${(1-value/max)*100}%`}}>
